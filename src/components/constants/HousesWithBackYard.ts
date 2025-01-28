@@ -91,21 +91,21 @@ export const KitchenLists = [
   },
   {
     id: "ed457",
-    image2:
+    image:
       "https://res.cloudinary.com/dbrub0d6r/image/upload/v1737916241/kitchen2_abtqrz.png",
     city: "Anggana",
     country: "Bogor, Indonesia",
   },
   {
     id: "em457",
-    image3:
+    image:
       "https://res.cloudinary.com/dbrub0d6r/image/upload/v1737916238/kitchen3_btigqd.png",
     city: "Seattle Rain",
     country: "Jakarta, Indonesia",
   },
   {
     id: "ea457",
-    image4:
+    image:
       "https://res.cloudinary.com/dbrub0d6r/image/upload/v1737916239/kitchen4_ajvx0s.png",
     city: "Tabby Town",
     country: "Wonosobo, Indonesia",
