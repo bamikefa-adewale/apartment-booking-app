@@ -4,7 +4,7 @@ import { AboutIcon } from "../constants/HousesWithBackYard";
 
 const AboutThePlace = () => {
   return (
-    <section className="container mx-auto mt-5 px-4">
+    <section className="container mx-auto mt-80  lg:mt-5 px-4">
       <Heading title="About the Place" />
 
       <div className="flex flex-col md:flex-row gap-5 md:h-[550px] justify-center">

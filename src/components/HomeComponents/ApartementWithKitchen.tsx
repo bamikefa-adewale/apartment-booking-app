@@ -10,7 +10,7 @@ const ApartementWithKitchen = () => {
         <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[280px]">
           {KitchenLists.map((item, i) => (
             <Link
-              to={`/details/${item}`}
+              to={`/details/${item.id}`}
               className="rounded-2xl transition-transform p-2 duration-300 hover:scale-105 hover:shadow-lg w-full md:w-auto"
               key={i}
             >
