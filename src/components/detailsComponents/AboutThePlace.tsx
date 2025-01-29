@@ -6,13 +6,21 @@ import { useNavigate } from "react-router-dom";
 import { useApartment } from "../../hooks/useApartment";
 import DatePicker from "react-datepicker";
 
-const AboutThePlace = () => {
-  const { nights, startDate, setStartDate, handleIncrement, handleDecrement } =
-    useApartment();
+interface AboutThePlaceProps {
+  id: string;
+}
+const AboutThePlace: React.FC<AboutThePlaceProps> = ({ id }) => {
+  const {
+    nights,
+    startDate,
+    setStartDate,
+    handleIncrement,
+    handleDecrement,
+    price_per_night,
+    totalPrice,
+  } = useApartment();
 
   const navigate = useNavigate();
-  const PRICE_PER_NIGHT = 200;
-  const totalPrice = PRICE_PER_NIGHT * nights;
 
   return (
     <section className="container mx-auto mt-80  lg:mt-5 px-4">
@@ -66,7 +74,7 @@ const AboutThePlace = () => {
             Start Booking
           </h1>
           <h2 className="my-2 text-[#1ABC9C] text-[28px] md:text-[36px] font-poppins font-medium">
-            $200
+            ${price_per_night}
             <span className="text-[#B0B0B0] font-light text-sm md:text-base">
               per night
             </span>
@@ -112,12 +120,13 @@ const AboutThePlace = () => {
               />
             </span>
           </div>
-          <p className="my-2 text-sm md:text-base">
-            You will pay ${totalPrice} USD for {nights} night
+          <p className="my-2 text-sm md:text-lg">
+            You will pay <span className="text-[#1ABC9C]">${totalPrice} </span>
+            USD for {nights} night
             {nights !== 1 ? "s" : ""}
           </p>
           <button
-            onClick={() => navigate("/bookingpage")}
+            onClick={() => navigate(`/bookingPage/${id}`)}
             className="bg-blue-500 shadow-lg shadow-blue-500/50 py-3 md:py-4 text-center cursor-pointer text-white text-base md:text-lg w-full max-w-[18rem] rounded-xl "
           >
             Continue Book

@@ -8,6 +8,8 @@ interface ApartmentContextType {
   setStartDate: (date: Date | null) => void; // Allow null
   handleIncrement: () => void;
   handleDecrement: () => void;
+  price_per_night: number;
+  totalPrice: number;
 }
 
 // Create the context with the appropriate type
@@ -34,10 +36,13 @@ export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
       setNights((prev) => prev - 1);
     }
   };
-
+  const price_per_night = 200;
+  const totalPrice = price_per_night * nights;
   return (
     <ApartmentContext.Provider
       value={{
+        totalPrice,
+        price_per_night,
         nights,
         setNights,
         startDate,

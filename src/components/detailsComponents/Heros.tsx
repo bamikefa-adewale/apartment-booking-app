@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { KitchenLists } from "../constants/HousesWithBackYard";
 import ImageCard from "../../ui/ImageCard";
+import AboutThePlace from "./AboutThePlace";
 
 interface KitchenItem {
   id: string;
@@ -45,6 +46,7 @@ const Heros: React.FC = () => {
           <ImageCard src={item?.image} alt="kitchen Image " />
         </div>
       </div>
+      <AboutThePlace id={id!} />
     </section>
   );
 };
