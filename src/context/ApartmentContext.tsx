@@ -27,6 +27,7 @@ interface ApartmentContextType {
   onSubmit: SubmitHandler<BookingFormData>;
   errors: FieldErrors<BookingFormData>;
   findKitchenById: (id: string) => KitchenItem | undefined;
+  isValid: boolean;
 }
 
 interface BookingFormData {
@@ -64,7 +65,7 @@ export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<BookingFormData>({
     resolver: zodResolver(SchemaValidation),
   });
@@ -89,6 +90,7 @@ export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
         handleIncrement,
         handleDecrement,
         findKitchenById,
+        isValid,
       }}
     >
       {children}

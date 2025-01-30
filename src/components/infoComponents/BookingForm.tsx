@@ -1,10 +1,28 @@
 import CustomButton from "../../ui/CustomBotton";
 import CustomInput from "../../ui/CustomInput";
 import { useApartment } from "../../hooks/useApartment";
+import { useParams } from "react-router-dom";
 
 const BookingForm: React.FC = () => {
-  const { handleSubmit, onSubmit, errors, register } = useApartment();
+  const { id } = useParams<{ id: string }>();
 
+  const {
+    handleSubmit,
+    onSubmit,
+    errors,
+    navigate,
+    register,
+    findKitchenById,
+    isValid,
+  } = useApartment();
+  console.log(isValid);
+  if (!findKitchenById) {
+    return <div>Loading...</div>;
+  }
+  const item = findKitchenById(id ?? "");
+  if (!item) {
+    return <div>Kitchen not found</div>;
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="md:w-1/2 space-y-4">
       <div className="py-6">
@@ -45,11 +63,23 @@ const BookingForm: React.FC = () => {
         <p className="text-red-500">{errors.number?.message}</p>
       </div>
 
-      <CustomButton
-        type="submit"
-        label="Testing btn"
-        className=" text-white bg-amber-500"
-      />
+      <div className="flex">
+        <CustomButton
+          onClick={() => navigate(`/details/${item?.id}`)}
+          label="Cancel"
+          className="bg-red-500 text-white hover:bg-red-600"
+        />
+        {isValid && (
+          <CustomButton
+            label="Continue to Book"
+            type="submit"
+            disabled={!isValid}
+            className={`mt-2  text-white  ${
+              !isValid ? "bg-blue-400" : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          />
+        )}
+      </div>
     </form>
   );
 };

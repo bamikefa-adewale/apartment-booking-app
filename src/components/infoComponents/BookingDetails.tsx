@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
 import { CardContent } from "../../ui/CardContent";
 import { useApartment } from "../../hooks/useApartment";
-import CustomButton from "../../ui/CustomBotton";
 import BookingForm from "./BookingForm";
 
 export const BookingDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { nights, navigate, totalPrice, findKitchenById } = useApartment();
+  const { nights, totalPrice, findKitchenById } = useApartment();
 
   if (!findKitchenById) {
     return <div>Loading...</div>;
@@ -43,18 +42,6 @@ export const BookingDetails: React.FC = () => {
         </div>
         <BookingForm />
       </section>
-      <div>
-        <CustomButton
-          onClick={() => navigate(`/details/${item?.id}`)}
-          label="Cancel"
-          className="bg-red-500 text-white hover:bg-red-600"
-        />
-        <CustomButton
-          label="Continue to Book"
-          type="submit"
-          className="mt-2 bg-blue-500 text-white hover:bg-blue-600"
-        />
-      </div>
     </>
   );
 };
