@@ -1,15 +1,39 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, createContext, type ReactNode } from "react";
+import {
+  FieldErrors,
+  SubmitHandler,
+  useForm,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { SchemaValidation } from "../schema/SchemaValidation";
+import { KitchenLists } from "../components/constants/HousesWithBackYard";
+import { KitchenItem } from "../types";
 
 // Define the type for the context value
+
 interface ApartmentContextType {
+  navigate: (path: string) => void;
   nights: number;
   setNights: (value: number) => void;
-  startDate: Date | null; // Allow null
-  setStartDate: (date: Date | null) => void; // Allow null
   handleIncrement: () => void;
   handleDecrement: () => void;
   price_per_night: number;
   totalPrice: number;
+  register: UseFormRegister<BookingFormData>;
+  handleSubmit: UseFormHandleSubmit<BookingFormData>;
+  onSubmit: SubmitHandler<BookingFormData>;
+  errors: FieldErrors<BookingFormData>;
+  findKitchenById: (id: string) => KitchenItem | undefined;
+}
+
+interface BookingFormData {
+  name: string;
+  email: string;
+  password: string;
+  number: string;
 }
 
 // Create the context with the appropriate type
@@ -17,7 +41,6 @@ interface ApartmentContextType {
 export const ApartmentContext = createContext<ApartmentContextType | undefined>(
   undefined
 );
-
 // Define the provider with a proper type for children
 interface ApartmentProviderProps {
   children: ReactNode;
@@ -25,11 +48,10 @@ interface ApartmentProviderProps {
 
 export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
   const [nights, setNights] = useState(1);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-
   const handleIncrement = () => {
     setNights((prev) => prev + 1);
   };
+  const navigate = useNavigate();
 
   const handleDecrement = () => {
     if (nights > 1) {
@@ -38,17 +60,35 @@ export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
   };
   const price_per_night = 200;
   const totalPrice = price_per_night * nights;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BookingFormData>({
+    resolver: zodResolver(SchemaValidation),
+  });
+  const onSubmit: SubmitHandler<BookingFormData> = (data) => {
+    console.log("formData:", data);
+  };
+
+  const findKitchenById = (id: string) =>
+    KitchenLists.find((kitchen) => kitchen.id === id);
   return (
     <ApartmentContext.Provider
       value={{
+        register,
+        handleSubmit,
+        onSubmit,
+        errors,
         totalPrice,
+        navigate,
         price_per_night,
         nights,
         setNights,
-        startDate,
-        setStartDate,
         handleIncrement,
         handleDecrement,
+        findKitchenById,
       }}
     >
       {children}

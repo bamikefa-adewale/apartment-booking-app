@@ -1,10 +1,9 @@
 import Heading from "../common/header/Heading";
-import { FaRegCalendarMinus } from "react-icons/fa6";
 import { AboutIcon } from "../constants/HousesWithBackYard";
 import { Minus, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useApartment } from "../../hooks/useApartment";
-import DatePicker from "react-datepicker";
+import BasicDatePicker from "../constants/BasicDatePicker";
 
 interface AboutThePlaceProps {
   id: string;
@@ -12,8 +11,7 @@ interface AboutThePlaceProps {
 const AboutThePlace: React.FC<AboutThePlaceProps> = ({ id }) => {
   const {
     nights,
-    startDate,
-    setStartDate,
+
     handleIncrement,
     handleDecrement,
     price_per_night,
@@ -102,24 +100,9 @@ const AboutThePlace: React.FC<AboutThePlaceProps> = ({ id }) => {
               </span>
             </div>
           </div>
-          <p className="text-black text-base md:text-lg font-poppins my-2">
-            Pick a Date
-          </p>
-          <div className="bg-[#F5F6F8] my-2 h-[3rem] flex gap-16 items-center w-full max-w-[18rem] rounded-lg border">
-            <div className="flex items-center justify-center bg-[#152C5B] h-full w-[3rem] rounded-l-lg">
-              <span className="text-white text-lg cursor-pointer">
-                <FaRegCalendarMinus />
-              </span>
-            </div>
-            <span className="px-2 text-black font-poppins">
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date || new Date())}
-                className="px-2 text-black font-poppins bg-transparent overflow-hidden outline-none"
-                dateFormat="dd/MM/yyyy"
-              />
-            </span>
-          </div>
+          <span className="px-2 text-black font-poppins mt-3">
+            <BasicDatePicker />
+          </span>
           <p className="my-2 text-sm md:text-lg">
             You will pay <span className="text-[#1ABC9C]">${totalPrice} </span>
             USD for {nights} night
