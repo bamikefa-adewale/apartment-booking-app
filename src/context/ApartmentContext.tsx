@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { SchemaValidation } from "../schema/SchemaValidation";
 import { KitchenLists } from "../components/constants/HousesWithBackYard";
 import { KitchenItem } from "../types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Define the type for the context value
 
@@ -71,6 +73,10 @@ export const ApartmentProvider = ({ children }: ApartmentProviderProps) => {
   });
   const onSubmit: SubmitHandler<BookingFormData> = (data) => {
     console.log("formData:", data);
+    toast.success("Successfully submitted your details");
+    localStorage.setItem("bookingData", JSON.stringify(data));
+    console.log("bookingData:", data);
+    navigate("/payment-page");
   };
 
   const findKitchenById = (id: string) =>

@@ -109,7 +109,7 @@ const AboutThePlace: React.FC<AboutThePlaceProps> = ({ id }) => {
             {nights !== 1 ? "s" : ""}
           </p>
           <button
-            onClick={() => navigate(`/bookingPage/${id}`)}
+            onClick={() => navigate(`/booking-page/${id}`)}
             className="bg-blue-500 shadow-lg shadow-blue-500/50 py-3 md:py-4 text-center cursor-pointer text-white text-base md:text-lg w-full max-w-[18rem] rounded-xl "
           >
             Continue Book
